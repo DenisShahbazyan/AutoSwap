@@ -6,6 +6,7 @@
 #include <string>
 #include <map>
 #include "GlobalVariables.h"
+#include "Offsets.h"
 
 /**
  * Возвращает вектор PID'ов. Принимает имя процесса.

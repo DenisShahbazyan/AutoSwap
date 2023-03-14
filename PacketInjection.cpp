@@ -40,7 +40,7 @@ void StrToByte(std::string strPacket, TParams& aParams)
 void Packet(std::string strPacket, DWORD ProcessID)
 {
     TParams aParams = { 0 };
-    aParams.baseAddress = PW_BASE_ADDRESS;
+    aParams.baseAddress = BASE_ADDRESS;
     aParams.packCall = PACKCALL;
 
     StrToByte(strPacket, aParams);

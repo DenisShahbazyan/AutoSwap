@@ -142,7 +142,7 @@ namespace AutoSwap {
 		g_PID = map_charName_processId[wstr];
 
 		Sleep(10);
-		//Packet("0F0014", g_PID);
+		Packet("11000000", g_PID);
 	}
 	private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 		textBox1->Text = e->KeyCode.ToString();

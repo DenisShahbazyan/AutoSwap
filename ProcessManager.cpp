@@ -71,7 +71,7 @@ std::map<std::wstring, DWORD> FindClients(const std::vector<DWORD>& PIDs)
         DWORD buf = 0;
         wchar_t name[255]{};
 
-        ReadProcessMemory(processHandle, (LPCVOID)(PW_BASE_ADDRESS), &buf, sizeof(buf), NULL);
+        ReadProcessMemory(processHandle, (LPCVOID)(BASE_ADDRESS), &buf, sizeof(buf), NULL);
         ReadProcessMemory(processHandle, (LPVOID)(buf + 0x1C), &buf, sizeof(buf), NULL);
         ReadProcessMemory(processHandle, (LPVOID)(buf + 0x34), &buf, sizeof(buf), NULL);
         ReadProcessMemory(processHandle, (LPVOID)(buf + 0x6FC), &buf, sizeof(buf), NULL);

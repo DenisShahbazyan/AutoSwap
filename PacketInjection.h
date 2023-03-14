@@ -3,6 +3,7 @@
 #include <string>
 #include "Injector.h"
 #include "GlobalVariables.h"
+#include "Offsets.h"
 
 
 #pragma pack(push, 1)

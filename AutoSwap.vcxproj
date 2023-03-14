@@ -137,6 +137,8 @@
   <ItemGroup>
     <ClInclude Include="GlobalVariables.h" />
     <ClInclude Include="Injector.h" />
+    <ClInclude Include="Offsets.h" />
+    <ClInclude Include="Offsets155.h" />
     <ClInclude Include="PacketInjection.h" />
     <ClInclude Include="ProcessManager.h" />
     <ClInclude Include="MainForm.h">
