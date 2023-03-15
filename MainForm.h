@@ -1,8 +1,10 @@
 #pragma once
+#include <thread>
 #include <string>
 #include <msclr/marshal_cppstd.h>
 #include "ProcessManager.h"
 #include "PacketInjection.h"
+#include "KeyboardHook.h"
 
 
 namespace AutoSwap {
@@ -113,6 +115,7 @@ namespace AutoSwap {
 			this->Controls->Add(this->comboBox1);
 			this->Name = L"MainForm";
 			this->Text = L"MainForm";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainForm::MainForm_FormClosing);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -141,12 +144,20 @@ namespace AutoSwap {
 		std::wstring wstr = msclr::interop::marshal_as<std::wstring>(this->comboBox1->Text);
 		g_PID = map_charName_processId[wstr];
 
-		Sleep(10);
-		Packet("11000000", g_PID);
+		SetHook();
+		std::thread t(StartMessageLoop);
+		t.detach();
+
+		/*Sleep(10);
+		Packet("11000000", g_PID);*/
+
 	}
 	private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 		textBox1->Text = e->KeyCode.ToString();
 		e->SuppressKeyPress = true;
 	}
-	};
+	private: System::Void MainForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
+		RemoveHook();
+	}
+};
 }

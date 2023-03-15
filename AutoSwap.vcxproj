@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Injector.cpp" />
+    <ClCompile Include="KeyboardHook.cpp" />
     <ClCompile Include="PacketInjection.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
     <ClCompile Include="MainForm.cpp" />
@@ -137,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="GlobalVariables.h" />
     <ClInclude Include="Injector.h" />
+    <ClInclude Include="KeyboardHook.h" />
     <ClInclude Include="Offsets.h" />
     <ClInclude Include="Offsets155.h" />
     <ClInclude Include="PacketInjection.h" />
