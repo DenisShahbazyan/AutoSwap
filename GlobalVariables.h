@@ -1,7 +1,9 @@
 #pragma once
 #include <Windows.h>
 #include <map>
+#include <string>
 
-
-static std::map<std::wstring, DWORD> map_charName_processId;
-static DWORD g_PID;
+extern std::map<std::wstring, DWORD> map_charName_processId;
+extern DWORD g_PID;
+extern int keyCodeSwap;
+extern bool isThreadRunning;

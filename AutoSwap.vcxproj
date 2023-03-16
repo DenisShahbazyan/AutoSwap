@@ -129,6 +129,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GlobalVariables.cpp" />
     <ClCompile Include="Injector.cpp" />
     <ClCompile Include="KeyboardHook.cpp" />
     <ClCompile Include="PacketInjection.cpp" />
@@ -137,10 +138,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GlobalVariables.h" />
+    <ClInclude Include="Swap.h" />
     <ClInclude Include="Injector.h" />
     <ClInclude Include="KeyboardHook.h" />
     <ClInclude Include="Offsets.h" />
-    <ClInclude Include="Offsets155.h" />
     <ClInclude Include="PacketInjection.h" />
     <ClInclude Include="ProcessManager.h" />
     <ClInclude Include="MainForm.h">

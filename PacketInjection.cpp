@@ -40,8 +40,8 @@ void StrToByte(std::string strPacket, TParams& aParams)
 void Packet(std::string strPacket, DWORD ProcessID)
 {
     TParams aParams = { 0 };
-    aParams.baseAddress = BASE_ADDRESS;
-    aParams.packCall = PACKCALL;
+    aParams.baseAddress = of.BaseAddress;
+    aParams.packCall = of.PackCall;
 
     StrToByte(strPacket, aParams);
     InjectFunc(ProcessID, (LPVOID)&PacketCall, &aParams, sizeof(aParams));

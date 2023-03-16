@@ -1,6 +1,7 @@
 #pragma once
 #include <windows.h>
-#include <msclr/marshal_cppstd.h> //Нужен ли?
+#include <msclr/marshal_cppstd.h> 
+#include "GlobalVariables.h"
 
 
 LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);

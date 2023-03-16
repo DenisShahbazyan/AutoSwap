@@ -30,6 +30,9 @@
     <ClCompile Include="KeyboardHook.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="GlobalVariables.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainForm.h">
@@ -47,13 +50,13 @@
     <ClInclude Include="PacketInjection.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Offsets155.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Offsets.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="KeyboardHook.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Swap.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

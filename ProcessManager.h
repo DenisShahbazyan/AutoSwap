@@ -5,7 +5,6 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "GlobalVariables.h"
 #include "Offsets.h"
 
 /**

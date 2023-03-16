@@ -5,6 +5,7 @@
 #include "ProcessManager.h"
 #include "PacketInjection.h"
 #include "KeyboardHook.h"
+#include "GlobalVariables.h"
 
 
 namespace AutoSwap {
@@ -141,16 +142,20 @@ namespace AutoSwap {
 	* Кнопка "Запустить".
 	*/
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		std::wstring wstr = msclr::interop::marshal_as<std::wstring>(this->comboBox1->Text);
-		g_PID = map_charName_processId[wstr];
+		if (!isThreadRunning) {
+			std::wstring wstr = msclr::interop::marshal_as<std::wstring>(this->comboBox1->Text);
+			g_PID = map_charName_processId[wstr];
 
-		SetHook();
-		std::thread t(StartMessageLoop);
-		t.detach();
+			if (textBox1->Text != "") {
+				keyCodeSwap = (int)((Keys)Enum::Parse(Keys::typeid, textBox1->Text));
+			}
 
-		/*Sleep(10);
-		Packet("11000000", g_PID);*/
+			SetHook();
+			std::thread t(StartMessageLoop);
+			t.detach();
 
+			isThreadRunning = !isThreadRunning;
+		}
 	}
 	private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 		textBox1->Text = e->KeyCode.ToString();

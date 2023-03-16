@@ -10,27 +10,12 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
         KBDLLHOOKSTRUCT* pKeyboardStruct = (KBDLLHOOKSTRUCT*)lParam;
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
         {
-            // Обработка нажатия клавиши
             int vkCode = pKeyboardStruct->vkCode;
-            if (vkCode == 0x70)  // Сделать чтоб суда подставлялась клавиша из поля
+            DWORD test = g_PID;
+            if (vkCode == 0x70)
             {
-                // Вызов нужной функции
-                //MyFunction();
-                
-                // Отображаем диалоговое окно с сообщением и кнопками для выбора варианта действия
                 int result = MessageBox(nullptr, L"Текст сообщения", L"Заголовок окна", MB_YESNO | MB_ICONQUESTION);
 
-                // Обрабатываем результат нажатия кнопки
-                switch (result)
-                {
-                case IDYES:
-                    // Действия при нажатии кнопки Yes
-                    break;
-                case IDNO:
-                    // Действия при нажатии кнопки No
-                    break;
-                    // Обработка других вариантов
-                }
             }
         }
     }

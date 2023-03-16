@@ -2,7 +2,6 @@
 #include <windows.h>
 #include <string>
 #include "Injector.h"
-#include "GlobalVariables.h"
 #include "Offsets.h"
 
 
