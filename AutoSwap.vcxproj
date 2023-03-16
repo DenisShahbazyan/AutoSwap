@@ -135,6 +135,7 @@
     <ClCompile Include="PacketInjection.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="Swap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GlobalVariables.h" />

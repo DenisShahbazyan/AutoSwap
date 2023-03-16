@@ -2,6 +2,7 @@
 #include <windows.h>
 #include <msclr/marshal_cppstd.h> 
 #include "GlobalVariables.h"
+#include "Swap.h"
 
 
 LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam);

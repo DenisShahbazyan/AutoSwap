@@ -11,11 +11,9 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
         {
             int vkCode = pKeyboardStruct->vkCode;
-            DWORD test = g_PID;
-            if (vkCode == 0x70)
+            if (vkCode == keyCodeSwap)
             {
-                int result = MessageBox(nullptr, L"Текст сообщения", L"Заголовок окна", MB_YESNO | MB_ICONQUESTION);
-
+                Swap();
             }
         }
     }
