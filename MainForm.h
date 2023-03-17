@@ -30,7 +30,6 @@ namespace AutoSwap {
 			//TODO: добавьте код конструктора
 			//
 		}
-
 	protected:
 		/// <summary>
 		/// Освободить все используемые ресурсы.
@@ -44,19 +43,11 @@ namespace AutoSwap {
 		}
 	private: System::Windows::Forms::ComboBox^ comboBoxCharName;
 	protected:
-
 	private: System::Windows::Forms::Button^ btnUpdateWindow;
 	protected:
-
-
 	private: System::Windows::Forms::Button^ btnStart;
 	private: System::Windows::Forms::TextBox^ hotKeyBox;
 	protected:
-
-
-
-
-
 	private: System::Windows::Forms::CheckBox^ checkBoxEquip1;
 	private: System::Windows::Forms::CheckBox^ checkBoxEquip2;
 	private: System::Windows::Forms::CheckBox^ checkBoxEquip3;
@@ -102,89 +93,11 @@ namespace AutoSwap {
 	private: System::Windows::Forms::ComboBox^ equipDoll13;
 	private: System::Windows::Forms::ComboBox^ equipDoll14;
 	private: System::Windows::Forms::ComboBox^ equipDoll15;
-	private: System::Windows::Forms::TextBox^ pauseWwap;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	private: System::Windows::Forms::Label^ label1;
 
 	protected:
-
 	private:
 		/// <summary>
 		/// Обязательная переменная конструктора.
@@ -247,8 +160,6 @@ namespace AutoSwap {
 			this->equipDoll13 = (gcnew System::Windows::Forms::ComboBox());
 			this->equipDoll14 = (gcnew System::Windows::Forms::ComboBox());
 			this->equipDoll15 = (gcnew System::Windows::Forms::ComboBox());
-			this->pauseWwap = (gcnew System::Windows::Forms::TextBox());
-			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// comboBoxCharName
@@ -271,7 +182,7 @@ namespace AutoSwap {
 			// 
 			// btnStart
 			// 
-			this->btnStart->Location = System::Drawing::Point(179, 428);
+			this->btnStart->Location = System::Drawing::Point(179, 393);
 			this->btnStart->Name = L"btnStart";
 			this->btnStart->Size = System::Drawing::Size(75, 23);
 			this->btnStart->TabIndex = 2;
@@ -281,7 +192,7 @@ namespace AutoSwap {
 			// 
 			// hotKeyBox
 			// 
-			this->hotKeyBox->Location = System::Drawing::Point(12, 430);
+			this->hotKeyBox->Location = System::Drawing::Point(12, 395);
 			this->hotKeyBox->Name = L"hotKeyBox";
 			this->hotKeyBox->ReadOnly = true;
 			this->hotKeyBox->Size = System::Drawing::Size(155, 20);
@@ -738,30 +649,11 @@ namespace AutoSwap {
 			this->equipDoll15->Size = System::Drawing::Size(104, 21);
 			this->equipDoll15->TabIndex = 47;
 			// 
-			// pauseWwap
-			// 
-			this->pauseWwap->Location = System::Drawing::Point(150, 407);
-			this->pauseWwap->Name = L"pauseWwap";
-			this->pauseWwap->Size = System::Drawing::Size(104, 20);
-			this->pauseWwap->TabIndex = 48;
-			this->pauseWwap->Text = L"200";
-			// 
-			// label1
-			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(12, 410);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(114, 13);
-			this->label1->TabIndex = 49;
-			this->label1->Text = L"Задержка свапа (мс)";
-			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(266, 457);
-			this->Controls->Add(this->label1);
-			this->Controls->Add(this->pauseWwap);
+			this->ClientSize = System::Drawing::Size(266, 422);
 			this->Controls->Add(this->equipDoll15);
 			this->Controls->Add(this->equipDoll14);
 			this->Controls->Add(this->equipDoll13);
@@ -835,12 +727,14 @@ namespace AutoSwap {
 		}
 	}
 
+
+
 	/**
 	* Кнопка "Запустить".
 	*/
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (!isThreadRunning) {
-			std::wstring wstr = msclr::interop::marshal_as<std::wstring>(this->comboBoxCharName->Text);
+		if (!isThreadRunning && hotKeyBox->Text != "") {
+			std::wstring wstr = msclr::interop::marshal_as<std::wstring>(comboBoxCharName->Text);
 			g_PID = map_charName_processId[wstr];
 
 			if (hotKeyBox->Text != "") {
@@ -851,6 +745,8 @@ namespace AutoSwap {
 			std::thread t(StartMessageLoop);
 			t.detach();
 
+			SaveCurrentStateForm();
+			
 			isThreadRunning = !isThreadRunning;
 		}
 	}
@@ -861,5 +757,61 @@ namespace AutoSwap {
 	private: System::Void MainForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 		RemoveHook();
 	}
+
+#pragma region Window Form element save state
+	void SaveCurrentStateForm() {
+		checkBoxEquips = {
+			checkBoxEquip1->Checked,
+			checkBoxEquip2->Checked,
+			checkBoxEquip3->Checked,
+			checkBoxEquip4->Checked,
+			checkBoxEquip5->Checked,
+			checkBoxEquip6->Checked,
+			checkBoxEquip7->Checked,
+			checkBoxEquip8->Checked,
+			checkBoxEquip9->Checked,
+			checkBoxEquip10->Checked,
+			checkBoxEquip11->Checked,
+			checkBoxEquip12->Checked,
+			checkBoxEquip13->Checked,
+			checkBoxEquip14->Checked,
+			checkBoxEquip15->Checked
+		};
+		equipCells = {
+			System::Convert::ToInt32(equipCell1->Text),
+			System::Convert::ToInt32(equipCell2->Text),
+			System::Convert::ToInt32(equipCell3->Text),
+			System::Convert::ToInt32(equipCell4->Text),
+			System::Convert::ToInt32(equipCell5->Text),
+			System::Convert::ToInt32(equipCell6->Text),
+			System::Convert::ToInt32(equipCell7->Text),
+			System::Convert::ToInt32(equipCell8->Text),
+			System::Convert::ToInt32(equipCell9->Text),
+			System::Convert::ToInt32(equipCell10->Text),
+			System::Convert::ToInt32(equipCell11->Text),
+			System::Convert::ToInt32(equipCell12->Text),
+			System::Convert::ToInt32(equipCell13->Text),
+			System::Convert::ToInt32(equipCell14->Text),
+			System::Convert::ToInt32(equipCell15->Text)
+		};
+		equipDolls = {
+			msclr::interop::marshal_as<std::wstring>(equipDoll1->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll2->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll3->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll4->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll5->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll6->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll7->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll8->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll9->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll10->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll11->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll12->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll13->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll14->Text),
+			msclr::interop::marshal_as<std::wstring>(equipDoll15->Text)
+		};
+	}
+#pragma endregion
 };
 }

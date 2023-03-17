@@ -95,7 +95,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <CompileAsManaged>true</CompileAsManaged>
-      <LanguageStandard_C>Default</LanguageStandard_C>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <AdditionalDependencies />
@@ -135,10 +135,12 @@
     <ClCompile Include="PacketInjection.cpp" />
     <ClCompile Include="ProcessManager.cpp" />
     <ClCompile Include="MainForm.cpp" />
+    <ClCompile Include="SecondaryFunctions.cpp" />
     <ClCompile Include="Swap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GlobalVariables.h" />
+    <ClInclude Include="SecondaryFunctions.h" />
     <ClInclude Include="Swap.h" />
     <ClInclude Include="Injector.h" />
     <ClInclude Include="KeyboardHook.h" />

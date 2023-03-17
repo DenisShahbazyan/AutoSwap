@@ -3,6 +3,7 @@
 #include <string>
 #include "Injector.h"
 #include "Offsets.h"
+#include "GlobalVariables.h"
 
 
 #pragma pack(push, 1)
@@ -29,4 +30,4 @@ void StrToByte(std::string strPacket, TParams& aParams);
 /**
  * Функция для отправки пакета в игру.
  */
-void Packet(std::string strPacket, DWORD ProcessID);
+void Packet(std::string strPacket);

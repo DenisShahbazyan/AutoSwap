@@ -2,9 +2,14 @@
 #include <Windows.h>
 #include <map>
 #include <string>
+#include <vector>
+
 
 extern std::map<std::wstring, DWORD> map_charName_processId;
 extern DWORD g_PID;
 extern int keyCodeSwap;
 extern bool isThreadRunning;
-extern const std::map<std::wstring, DWORD> equipment;
+
+extern std::vector<bool> checkBoxEquips;
+extern std::vector<int> equipCells;
+extern std::vector<std::wstring> equipDolls;
