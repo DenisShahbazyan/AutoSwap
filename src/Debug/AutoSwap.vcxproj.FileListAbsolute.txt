@@ -1,5 +1,0 @@
-C:\dev\C++\AutoSwap\src\Debug\AutoSwap.vcxproj.AssemblyReference.cache
-C:\dev\C++\AutoSwap\src\Debug\AutoSwap.vcxproj.SuggestedBindingRedirects.cache
-C:\dev\C++\AutoSwap\src\Debug\AutoSwap.MainForm.resources
-C:\dev\C++\AutoSwap\src\Debug\AutoSwap.vcxproj.GenerateResource.cache
-C:\dev\C++\AutoSwap\src\Debug\AutoSwap.exe

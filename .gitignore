@@ -32,7 +32,7 @@
 *.app
 
 # MyFolders
-/.vs
-/x64
-/x86
-/Debug
+src/.vs/
+src/x64
+src/x86
+src/Debug
