@@ -732,23 +732,23 @@ namespace AutoSwap {
 	* Кнопка "Запустить".
 	*/
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (thread_id != 0) {
-			PostThreadMessage(thread_id, WM_QUIT, 0, 0);
-			isThreadRunning.store(false);
+		if (G_THREAD_ID != 0) {
+			PostThreadMessage(G_THREAD_ID, WM_QUIT, 0, 0);
+			G_IS_THREAD_RUNNING = !G_IS_THREAD_RUNNING;
 			RemoveHook();
 		}
-		if (!isThreadRunning.load() && hotKeyBox->Text != "") {
-			isThreadRunning.store(true);
+		if (!G_IS_THREAD_RUNNING && hotKeyBox->Text != "") {
+			G_IS_THREAD_RUNNING = !G_IS_THREAD_RUNNING;
 
 			std::wstring wstr = msclr::interop::marshal_as<std::wstring>(comboBoxCharName->Text);
-			g_PID.store(map_charName_processId[wstr]);
+			G_PID = map_charName_processId[wstr];
 
-			keyCodeSwap.store((int)((Keys)Enum::Parse(Keys::typeid, hotKeyBox->Text)));
+			G_KEY_CODE_SWAP = (int)((Keys)Enum::Parse(Keys::typeid, hotKeyBox->Text));
 
 			SetHook();
 			std::thread thread_msg_loop(StartMessageLoop);
 			HANDLE native_handle = thread_msg_loop.native_handle();
-			thread_id = GetThreadId(native_handle);
+			G_THREAD_ID = GetThreadId(native_handle);
 			thread_msg_loop.detach();
 
 			SaveCurrentStateForm();
@@ -768,7 +768,7 @@ namespace AutoSwap {
 
 #pragma region Window Form element save state
 	void SaveCurrentStateForm() {
-		checkBoxEquips = {
+		G_checkBoxEquips = {
 			checkBoxEquip1->Checked,
 			checkBoxEquip2->Checked,
 			checkBoxEquip3->Checked,
@@ -785,7 +785,7 @@ namespace AutoSwap {
 			checkBoxEquip14->Checked,
 			checkBoxEquip15->Checked
 		};
-		equipCells = {
+		G_equipCells = {
 			System::Convert::ToInt32(equipCell1->Text),
 			System::Convert::ToInt32(equipCell2->Text),
 			System::Convert::ToInt32(equipCell3->Text),
@@ -802,7 +802,7 @@ namespace AutoSwap {
 			System::Convert::ToInt32(equipCell14->Text),
 			System::Convert::ToInt32(equipCell15->Text)
 		};
-		equipDolls = {
+		G_equipDolls = {
 			msclr::interop::marshal_as<std::wstring>(equipDoll1->Text),
 			msclr::interop::marshal_as<std::wstring>(equipDoll2->Text),
 			msclr::interop::marshal_as<std::wstring>(equipDoll3->Text),

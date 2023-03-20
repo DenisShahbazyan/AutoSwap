@@ -2,12 +2,12 @@
 
 std::map<std::wstring, DWORD> map_charName_processId;
 
-std::atomic<DWORD> g_PID;
-std::atomic<int> keyCodeSwap;
-std::atomic<bool> isThreadRunning = false;
+DWORD G_PID;
+int G_KEY_CODE_SWAP;
+bool G_IS_THREAD_RUNNING = false;
 
-std::vector<bool> checkBoxEquips;
-std::vector<int> equipCells;
-std::vector<std::wstring> equipDolls;
+std::vector<bool> G_checkBoxEquips;
+std::vector<int> G_equipCells;
+std::vector<std::wstring> G_equipDolls;
 
-DWORD thread_id = 0;
+DWORD G_THREAD_ID = 0;

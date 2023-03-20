@@ -9,12 +9,12 @@
 
 extern std::map<std::wstring, DWORD> map_charName_processId;
 
-extern std::atomic<DWORD> g_PID;
-extern std::atomic<int> keyCodeSwap;
-extern std::atomic<bool> isThreadRunning;
+extern DWORD G_PID;
+extern int G_KEY_CODE_SWAP;
+extern bool G_IS_THREAD_RUNNING;
 
-extern std::vector<bool> checkBoxEquips;
-extern std::vector<int> equipCells;
-extern std::vector<std::wstring> equipDolls;
+extern std::vector<bool> G_checkBoxEquips;
+extern std::vector<int> G_equipCells;
+extern std::vector<std::wstring> G_equipDolls;
 
-extern DWORD thread_id;
+extern DWORD G_THREAD_ID;

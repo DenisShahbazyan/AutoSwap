@@ -23,11 +23,11 @@ std::map<std::wstring, DWORD> equipment = {
 void Swap() {
     std::string startPacket = "1100";
 
-    for (int i = 0; i < checkBoxEquips.size(); i++) {
-        if (checkBoxEquips[i]) {
-            std::string equipCell = IntToHex(equipCells[i] - 1, 2);
-            std::string equipDoll = IntToHex(equipment[equipDolls[i]], 2);
-            Packet(g_PID.load(), startPacket + equipCell + equipDoll);
+    for (int i = 0; i < G_checkBoxEquips.size(); i++) {
+        if (G_checkBoxEquips[i]) {
+            std::string equipCell = IntToHex(G_equipCells[i] - 1, 2);
+            std::string equipDoll = IntToHex(equipment[G_equipDolls[i]], 2);
+            Packet(G_PID, startPacket + equipCell + equipDoll);
         }
     }
 }
