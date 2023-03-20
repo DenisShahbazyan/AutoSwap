@@ -731,7 +731,8 @@ namespace AutoSwap {
 	* Кнопка "Запустить".
 	*/
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (isThreadRunning.load()) {
+		if (thread_id != 0) {
+			PostThreadMessage(thread_id, WM_QUIT, 0, 0);
 			isThreadRunning.store(false);
 			RemoveHook();
 		}
@@ -745,6 +746,8 @@ namespace AutoSwap {
 
 			SetHook();
 			std::thread thread_msg_loop(StartMessageLoop);
+			HANDLE native_handle = thread_msg_loop.native_handle();
+			thread_id = GetThreadId(native_handle);
 			thread_msg_loop.detach();
 
 			SaveCurrentStateForm();

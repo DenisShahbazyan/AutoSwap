@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <atomic>
+#include <thread>
 
 
 extern std::map<std::wstring, DWORD> map_charName_processId;
@@ -15,3 +16,5 @@ extern std::atomic<bool> isThreadRunning;
 extern std::vector<bool> checkBoxEquips;
 extern std::vector<int> equipCells;
 extern std::vector<std::wstring> equipDolls;
+
+extern DWORD thread_id;

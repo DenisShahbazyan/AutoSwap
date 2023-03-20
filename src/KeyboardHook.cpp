@@ -30,9 +30,6 @@ void StartMessageLoop() {
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0))
     {
-        if (!isThreadRunning.load()) {
-            break;
-        }
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }

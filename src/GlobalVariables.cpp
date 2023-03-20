@@ -9,3 +9,5 @@ std::atomic<bool> isThreadRunning = false;
 std::vector<bool> checkBoxEquips;
 std::vector<int> equipCells;
 std::vector<std::wstring> equipDolls;
+
+DWORD thread_id = 0;
