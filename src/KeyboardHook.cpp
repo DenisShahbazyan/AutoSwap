@@ -13,8 +13,8 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
             int vkCode = pKeyboardStruct->vkCode;
             if (vkCode == keyCodeSwap.load())
             {
-                std::thread t(Swap);
-                t.detach();
+                std::thread thread_swap(Swap);
+                thread_swap.detach();
             }
         }
     }
