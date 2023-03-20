@@ -3,12 +3,14 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <atomic>
 
 
 extern std::map<std::wstring, DWORD> map_charName_processId;
-extern DWORD g_PID;
-extern int keyCodeSwap;
-extern bool isThreadRunning;
+
+extern std::atomic<DWORD> g_PID;
+extern std::atomic<int> keyCodeSwap;
+extern std::atomic<bool> isThreadRunning;
 
 extern std::vector<bool> checkBoxEquips;
 extern std::vector<int> equipCells;

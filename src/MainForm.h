@@ -731,21 +731,23 @@ namespace AutoSwap {
 	* Кнопка "Запустить".
 	*/
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
-		if (!isThreadRunning && hotKeyBox->Text != "") {
-			std::wstring wstr = msclr::interop::marshal_as<std::wstring>(comboBoxCharName->Text);
-			g_PID = map_charName_processId[wstr];
+		if (isThreadRunning.load()) {
+			isThreadRunning.store(false);
+			RemoveHook();
+		}
+		if (!isThreadRunning.load() && hotKeyBox->Text != "") {
+			isThreadRunning.store(true);
 
-			if (hotKeyBox->Text != "") {
-				keyCodeSwap = (int)((Keys)Enum::Parse(Keys::typeid, hotKeyBox->Text));
-			}
+			std::wstring wstr = msclr::interop::marshal_as<std::wstring>(comboBoxCharName->Text);
+			g_PID.store(map_charName_processId[wstr]);
+
+			keyCodeSwap.store((int)((Keys)Enum::Parse(Keys::typeid, hotKeyBox->Text)));
 
 			SetHook();
-			std::thread t(StartMessageLoop);
-			t.detach();
+			std::thread thread_msg_loop(StartMessageLoop);
+			thread_msg_loop.detach();
 
 			SaveCurrentStateForm();
-			
-			isThreadRunning = !isThreadRunning;
 		}
 	}
 	private: System::Void textBox1_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {

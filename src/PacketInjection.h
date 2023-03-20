@@ -30,4 +30,4 @@ void StrToByte(std::string strPacket, TParams& aParams);
 /**
  * Функция для отправки пакета в игру.
  */
-void Packet(std::string strPacket);
+void Packet(DWORD ProcessID, std::string strPacket);

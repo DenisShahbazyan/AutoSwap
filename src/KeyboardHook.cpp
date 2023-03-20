@@ -11,7 +11,7 @@ LRESULT CALLBACK KeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
         if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
         {
             int vkCode = pKeyboardStruct->vkCode;
-            if (vkCode == keyCodeSwap)
+            if (vkCode == keyCodeSwap.load())
             {
                 std::thread t(Swap);
                 t.detach();
@@ -30,6 +30,9 @@ void StartMessageLoop() {
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0))
     {
+        if (!isThreadRunning.load()) {
+            break;
+        }
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }

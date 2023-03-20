@@ -1,9 +1,10 @@
 #include "GlobalVariables.h"
 
 std::map<std::wstring, DWORD> map_charName_processId;
-DWORD g_PID;
-int keyCodeSwap;
-bool isThreadRunning = false;
+
+std::atomic<DWORD> g_PID;
+std::atomic<int> keyCodeSwap;
+std::atomic<bool> isThreadRunning = false;
 
 std::vector<bool> checkBoxEquips;
 std::vector<int> equipCells;

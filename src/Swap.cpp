@@ -27,7 +27,7 @@ void Swap() {
         if (checkBoxEquips[i]) {
             std::string equipCell = IntToHex(equipCells[i] - 1, 2);
             std::string equipDoll = IntToHex(equipment[equipDolls[i]], 2);
-            Packet(startPacket + equipCell + equipDoll);
+            Packet(g_PID.load(), startPacket + equipCell + equipDoll);
         }
     }
 }
