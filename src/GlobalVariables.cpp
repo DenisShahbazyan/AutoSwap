@@ -1,6 +1,6 @@
 #include "GlobalVariables.h"
 
-std::map<std::wstring, DWORD> map_charName_processId;
+std::map<std::wstring, DWORD> G_map_charName_processId;
 
 DWORD G_PID;
 int G_KEY_CODE_SWAP;

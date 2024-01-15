@@ -93,6 +93,7 @@ namespace AutoSwap {
 	private: System::Windows::Forms::ComboBox^ equipDoll13;
 	private: System::Windows::Forms::ComboBox^ equipDoll14;
 	private: System::Windows::Forms::ComboBox^ equipDoll15;
+	private: System::Windows::Forms::LinkLabel^ authorLinkLabel1;
 
 
 
@@ -160,6 +161,7 @@ namespace AutoSwap {
 			this->equipDoll13 = (gcnew System::Windows::Forms::ComboBox());
 			this->equipDoll14 = (gcnew System::Windows::Forms::ComboBox());
 			this->equipDoll15 = (gcnew System::Windows::Forms::ComboBox());
+			this->authorLinkLabel1 = (gcnew System::Windows::Forms::LinkLabel());
 			this->SuspendLayout();
 			// 
 			// comboBoxCharName
@@ -649,11 +651,24 @@ namespace AutoSwap {
 			this->equipDoll15->Size = System::Drawing::Size(104, 21);
 			this->equipDoll15->TabIndex = 47;
 			// 
+			// authorLinkLabel1
+			// 
+			this->authorLinkLabel1->AutoSize = true;
+			this->authorLinkLabel1->LinkBehavior = System::Windows::Forms::LinkBehavior::HoverUnderline;
+			this->authorLinkLabel1->Location = System::Drawing::Point(9, 421);
+			this->authorLinkLabel1->Name = L"authorLinkLabel1";
+			this->authorLinkLabel1->Size = System::Drawing::Size(96, 13);
+			this->authorLinkLabel1->TabIndex = 48;
+			this->authorLinkLabel1->TabStop = true;
+			this->authorLinkLabel1->Text = L"Author: Telegramm";
+			this->authorLinkLabel1->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MainForm::authorLinkLabel1_LinkClicked);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(266, 422);
+			this->ClientSize = System::Drawing::Size(266, 443);
+			this->Controls->Add(this->authorLinkLabel1);
 			this->Controls->Add(this->equipDoll15);
 			this->Controls->Add(this->equipDoll14);
 			this->Controls->Add(this->equipDoll13);
@@ -717,10 +732,10 @@ namespace AutoSwap {
 	 */
 	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 		std::vector<DWORD> PIDs = GetProcessIdsByProcessName(L"elementclient.exe");
-		map_charName_processId = FindClients(PIDs);
+		G_map_charName_processId = FindClients(PIDs);
 
 		this->comboBoxCharName->Items->Clear();
-		for (auto const& element: map_charName_processId) {
+		for (auto const& element: G_map_charName_processId) {
 			this->comboBoxCharName->Items->Add(gcnew String(element.first.c_str()));
 		}
 		if (this->comboBoxCharName->Items->Count != 0) {
@@ -741,7 +756,7 @@ namespace AutoSwap {
 			G_IS_THREAD_RUNNING = !G_IS_THREAD_RUNNING;
 
 			std::wstring wstr = msclr::interop::marshal_as<std::wstring>(comboBoxCharName->Text);
-			G_PID = map_charName_processId[wstr];
+			G_PID = G_map_charName_processId[wstr];
 
 			G_KEY_CODE_SWAP = (int)((Keys)Enum::Parse(Keys::typeid, hotKeyBox->Text));
 
@@ -758,10 +773,18 @@ namespace AutoSwap {
 		hotKeyBox->Text = e->KeyCode.ToString();
 		e->SuppressKeyPress = true;
 	}
+
+	/*
+	* События при закрытии формы
+	*/
 	private: System::Void MainForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 		RemoveHook();
 		SaveStateFormElements();
 	}
+
+	/*
+	* События при открытии формы
+	*/
 	private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		LoadStateFormElements();
 	}
@@ -820,6 +843,10 @@ namespace AutoSwap {
 			msclr::interop::marshal_as<std::wstring>(equipDoll15->Text)
 		};
 	}
+
+	/*
+	* Сохранение параметров в реестр (Чекбоксы, Номера ячеек со снаряжением, Снаряжение)
+	*/
 	void SaveStateFormElements() {
 		Microsoft::Win32::RegistryKey^ key;
 
@@ -877,6 +904,10 @@ namespace AutoSwap {
 
 		key->Close();
 	}
+
+	/*
+	* Загрузка параметров в реестр (Чекбоксы, Номера ячеек со снаряжением, Снаряжение)
+	*/
 	void LoadStateFormElements() {
 		Microsoft::Win32::RegistryKey^ key;
 
@@ -937,5 +968,11 @@ namespace AutoSwap {
 		}
 	}
 #pragma endregion
+	/*
+	* Кликабельная ссылка на автора
+	*/
+private: System::Void authorLinkLabel1_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+	System::Diagnostics::Process::Start("https://t.me/QTBEPHNCb");
+}
 };
 }

@@ -7,7 +7,7 @@
 #include <thread>
 
 
-extern std::map<std::wstring, DWORD> map_charName_processId;
+extern std::map<std::wstring, DWORD> G_map_charName_processId;
 
 extern DWORD G_PID;
 extern int G_KEY_CODE_SWAP;

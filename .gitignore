@@ -37,3 +37,6 @@ src/x64
 src/x86
 src/Debug
 src/Release
+.vs/
+Debug/
+x64/
