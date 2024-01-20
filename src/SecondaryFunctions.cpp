@@ -15,3 +15,19 @@ std::string IntToHex(int value, int len) {
 
     return hex;
 }
+
+std::string ConvertByte(const std::string& z) {
+    std::string s;
+
+    for (int j = z.length() - 1; j >= 0; --j) {
+        s += z[j];
+    }
+
+    for (int i = 0; i < s.length(); i += 2) {
+        char c = s[i];
+        s[i] = s[i + 1];
+        s[i + 1] = c;
+    }
+
+    return s;
+}

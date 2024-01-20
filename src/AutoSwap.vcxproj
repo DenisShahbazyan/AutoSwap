@@ -131,6 +131,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Assist.cpp" />
     <ClCompile Include="GlobalVariables.cpp" />
     <ClCompile Include="Injector.cpp" />
     <ClCompile Include="KeyboardHook.cpp" />
@@ -141,6 +142,7 @@
     <ClCompile Include="Swap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Assist.h" />
     <ClInclude Include="GlobalVariables.h" />
     <ClInclude Include="SecondaryFunctions.h" />
     <ClInclude Include="Swap.h" />
