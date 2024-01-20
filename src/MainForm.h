@@ -44,12 +44,9 @@ namespace AutoSwap {
 	private: System::Windows::Forms::ComboBox^ comboBoxCharName;
 	private: System::Windows::Forms::Button^ btnFindChars;
 	protected:
-
 	private: System::Windows::Forms::Button^ btnStartSwap;
 	protected:
-
 	private: System::Windows::Forms::TextBox^ hotKeyBoxSwap;
-
 	protected:
 	private: System::Windows::Forms::CheckBox^ checkBoxEquip1;
 	private: System::Windows::Forms::CheckBox^ checkBoxEquip2;
@@ -97,30 +94,15 @@ namespace AutoSwap {
 	private: System::Windows::Forms::ComboBox^ equipDoll14;
 	private: System::Windows::Forms::ComboBox^ equipDoll15;
 	private: System::Windows::Forms::LinkLabel^ authorLinkLabel1;
-	private: System::Windows::Forms::Timer^ timerForAssist;
 	private: System::Windows::Forms::TextBox^ hotKeyBoxAssist;
-
-
-
 	private: System::Windows::Forms::Button^ btnStartAssist;
 	private: System::Windows::Forms::GroupBox^ groupBoxAssist;
-
-
-
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::TextBox^ hotKeyBoxKeyBeforeAssist;
 	private: System::Windows::Forms::GroupBox^ groupBoxSwap;
 
 
-
-
-
-
 	private: System::ComponentModel::IContainer^ components;
-
-
-
-
 	protected:
 	private:
 		/// <summary>
@@ -135,7 +117,6 @@ namespace AutoSwap {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->components = (gcnew System::ComponentModel::Container());
 			this->comboBoxCharName = (gcnew System::Windows::Forms::ComboBox());
 			this->btnFindChars = (gcnew System::Windows::Forms::Button());
 			this->btnStartSwap = (gcnew System::Windows::Forms::Button());
@@ -186,7 +167,6 @@ namespace AutoSwap {
 			this->equipDoll14 = (gcnew System::Windows::Forms::ComboBox());
 			this->equipDoll15 = (gcnew System::Windows::Forms::ComboBox());
 			this->authorLinkLabel1 = (gcnew System::Windows::Forms::LinkLabel());
-			this->timerForAssist = (gcnew System::Windows::Forms::Timer(this->components));
 			this->hotKeyBoxAssist = (gcnew System::Windows::Forms::TextBox());
 			this->btnStartAssist = (gcnew System::Windows::Forms::Button());
 			this->groupBoxAssist = (gcnew System::Windows::Forms::GroupBox());
@@ -696,11 +676,6 @@ namespace AutoSwap {
 			this->authorLinkLabel1->Text = L"Author: Telegramm";
 			this->authorLinkLabel1->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MainForm::authorLinkLabel1_LinkClicked);
 			// 
-			// timerForAssist
-			// 
-			this->timerForAssist->Interval = 300;
-			this->timerForAssist->Tick += gcnew System::EventHandler(this, &MainForm::timerForAssist_Tick);
-			// 
 			// hotKeyBoxAssist
 			// 
 			this->hotKeyBoxAssist->Location = System::Drawing::Point(6, 39);
@@ -830,15 +805,15 @@ namespace AutoSwap {
 
 		}
 #pragma endregion
-	/**
-	 * Кнопка "Обновить".
-	 */
+		/**
+		 * Кнопка "Обновить".
+		 */
 	private: System::Void btnFindChars_Click(System::Object^ sender, System::EventArgs^ e) {
 		std::vector<DWORD> PIDs = GetProcessIdsByProcessName(L"elementclient.exe");
 		G_map_charName_processId = FindClients(PIDs);
 
 		this->comboBoxCharName->Items->Clear();
-		for (auto const& element: G_map_charName_processId) {
+		for (auto const& element : G_map_charName_processId) {
 			this->comboBoxCharName->Items->Add(gcnew String(element.first.c_str()));
 		}
 		if (this->comboBoxCharName->Items->Count != 0) {
@@ -846,9 +821,9 @@ namespace AutoSwap {
 		}
 	}
 
-	/**
-	* Кнопка "Запустить" Swap.
-	*/
+		   /**
+		   * Кнопка "Запустить" Swap.
+		   */
 	private: System::Void btnStartSwap_Click(System::Object^ sender, System::EventArgs^ e) {
 		// Если поток уже запущен, то освобождаем его.
 		if (G_THREAD_SWAP_ID != 0) {
@@ -877,9 +852,9 @@ namespace AutoSwap {
 		}
 	}
 
-	/**
-	* Кнопка "Запустить" Assist.
-	*/
+		   /**
+		   * Кнопка "Запустить" Assist.
+		   */
 	private: System::Void btnStartAssist_Click(System::Object^ sender, System::EventArgs^ e) {
 		// Если поток уже запущен, то освобождаем его.
 		if (G_THREAD_ASSIST_ID != 0) {
@@ -906,221 +881,221 @@ namespace AutoSwap {
 		}
 	}
 
-	/*
-	* События при закрытии формы
-	*/
+		   /*
+		   * События при закрытии формы
+		   */
 	private: System::Void MainForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) {
 		RemoveHookSwap();
 		RemoveHookAssist();
 		SaveStateFormElements();
 	}
 
-	/*
-	* События при открытии формы
-	*/
+		   /*
+		   * События при открытии формы
+		   */
 	private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
 		LoadStateFormElements();
 	}
 
 #pragma region Window Form element save state
-	void SaveCurrentStateForm() {
-		G_checkBoxEquips = {
-			checkBoxEquip1->Checked,
-			checkBoxEquip2->Checked,
-			checkBoxEquip3->Checked,
-			checkBoxEquip4->Checked,
-			checkBoxEquip5->Checked,
-			checkBoxEquip6->Checked,
-			checkBoxEquip7->Checked,
-			checkBoxEquip8->Checked,
-			checkBoxEquip9->Checked,
-			checkBoxEquip10->Checked,
-			checkBoxEquip11->Checked,
-			checkBoxEquip12->Checked,
-			checkBoxEquip13->Checked,
-			checkBoxEquip14->Checked,
-			checkBoxEquip15->Checked
-		};
-		G_equipCells = {
-			System::Convert::ToInt32(equipCell1->Text),
-			System::Convert::ToInt32(equipCell2->Text),
-			System::Convert::ToInt32(equipCell3->Text),
-			System::Convert::ToInt32(equipCell4->Text),
-			System::Convert::ToInt32(equipCell5->Text),
-			System::Convert::ToInt32(equipCell6->Text),
-			System::Convert::ToInt32(equipCell7->Text),
-			System::Convert::ToInt32(equipCell8->Text),
-			System::Convert::ToInt32(equipCell9->Text),
-			System::Convert::ToInt32(equipCell10->Text),
-			System::Convert::ToInt32(equipCell11->Text),
-			System::Convert::ToInt32(equipCell12->Text),
-			System::Convert::ToInt32(equipCell13->Text),
-			System::Convert::ToInt32(equipCell14->Text),
-			System::Convert::ToInt32(equipCell15->Text)
-		};
-		G_equipDolls = {
-			msclr::interop::marshal_as<std::wstring>(equipDoll1->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll2->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll3->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll4->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll5->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll6->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll7->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll8->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll9->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll10->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll11->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll12->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll13->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll14->Text),
-			msclr::interop::marshal_as<std::wstring>(equipDoll15->Text)
-		};
-	}
+		   void SaveCurrentStateForm() {
+			   G_checkBoxEquips = {
+				   checkBoxEquip1->Checked,
+				   checkBoxEquip2->Checked,
+				   checkBoxEquip3->Checked,
+				   checkBoxEquip4->Checked,
+				   checkBoxEquip5->Checked,
+				   checkBoxEquip6->Checked,
+				   checkBoxEquip7->Checked,
+				   checkBoxEquip8->Checked,
+				   checkBoxEquip9->Checked,
+				   checkBoxEquip10->Checked,
+				   checkBoxEquip11->Checked,
+				   checkBoxEquip12->Checked,
+				   checkBoxEquip13->Checked,
+				   checkBoxEquip14->Checked,
+				   checkBoxEquip15->Checked
+			   };
+			   G_equipCells = {
+				   System::Convert::ToInt32(equipCell1->Text),
+				   System::Convert::ToInt32(equipCell2->Text),
+				   System::Convert::ToInt32(equipCell3->Text),
+				   System::Convert::ToInt32(equipCell4->Text),
+				   System::Convert::ToInt32(equipCell5->Text),
+				   System::Convert::ToInt32(equipCell6->Text),
+				   System::Convert::ToInt32(equipCell7->Text),
+				   System::Convert::ToInt32(equipCell8->Text),
+				   System::Convert::ToInt32(equipCell9->Text),
+				   System::Convert::ToInt32(equipCell10->Text),
+				   System::Convert::ToInt32(equipCell11->Text),
+				   System::Convert::ToInt32(equipCell12->Text),
+				   System::Convert::ToInt32(equipCell13->Text),
+				   System::Convert::ToInt32(equipCell14->Text),
+				   System::Convert::ToInt32(equipCell15->Text)
+			   };
+			   G_equipDolls = {
+				   msclr::interop::marshal_as<std::wstring>(equipDoll1->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll2->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll3->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll4->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll5->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll6->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll7->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll8->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll9->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll10->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll11->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll12->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll13->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll14->Text),
+				   msclr::interop::marshal_as<std::wstring>(equipDoll15->Text)
+			   };
+		   }
 
-	/*
-	* Сохранение параметров в реестр 
-	*/
-	void SaveStateFormElements() {
-		Microsoft::Win32::RegistryKey^ key;
+		   /*
+		   * Сохранение параметров в реестр
+		   */
+		   void SaveStateFormElements() {
+			   Microsoft::Win32::RegistryKey^ key;
 
-		key = Microsoft::Win32::Registry::CurrentUser->CreateSubKey("SOFTWARE\\\\AutoSwap");
+			   key = Microsoft::Win32::Registry::CurrentUser->CreateSubKey("SOFTWARE\\\\AutoSwap");
 
-		// Свап
-		key->SetValue("checkBoxEquip1", this->checkBoxEquip1->Checked);
-		key->SetValue("checkBoxEquip2", this->checkBoxEquip2->Checked);
-		key->SetValue("checkBoxEquip3", this->checkBoxEquip3->Checked);
-		key->SetValue("checkBoxEquip4", this->checkBoxEquip4->Checked);
-		key->SetValue("checkBoxEquip5", this->checkBoxEquip5->Checked);
-		key->SetValue("checkBoxEquip6", this->checkBoxEquip6->Checked);
-		key->SetValue("checkBoxEquip7", this->checkBoxEquip7->Checked);
-		key->SetValue("checkBoxEquip8", this->checkBoxEquip8->Checked);
-		key->SetValue("checkBoxEquip9", this->checkBoxEquip9->Checked);
-		key->SetValue("checkBoxEquip10", this->checkBoxEquip10->Checked);
-		key->SetValue("checkBoxEquip11", this->checkBoxEquip11->Checked);
-		key->SetValue("checkBoxEquip12", this->checkBoxEquip12->Checked);
-		key->SetValue("checkBoxEquip13", this->checkBoxEquip13->Checked);
-		key->SetValue("checkBoxEquip14", this->checkBoxEquip14->Checked);
-		key->SetValue("checkBoxEquip15", this->checkBoxEquip15->Checked);
+			   // Свап
+			   key->SetValue("checkBoxEquip1", this->checkBoxEquip1->Checked);
+			   key->SetValue("checkBoxEquip2", this->checkBoxEquip2->Checked);
+			   key->SetValue("checkBoxEquip3", this->checkBoxEquip3->Checked);
+			   key->SetValue("checkBoxEquip4", this->checkBoxEquip4->Checked);
+			   key->SetValue("checkBoxEquip5", this->checkBoxEquip5->Checked);
+			   key->SetValue("checkBoxEquip6", this->checkBoxEquip6->Checked);
+			   key->SetValue("checkBoxEquip7", this->checkBoxEquip7->Checked);
+			   key->SetValue("checkBoxEquip8", this->checkBoxEquip8->Checked);
+			   key->SetValue("checkBoxEquip9", this->checkBoxEquip9->Checked);
+			   key->SetValue("checkBoxEquip10", this->checkBoxEquip10->Checked);
+			   key->SetValue("checkBoxEquip11", this->checkBoxEquip11->Checked);
+			   key->SetValue("checkBoxEquip12", this->checkBoxEquip12->Checked);
+			   key->SetValue("checkBoxEquip13", this->checkBoxEquip13->Checked);
+			   key->SetValue("checkBoxEquip14", this->checkBoxEquip14->Checked);
+			   key->SetValue("checkBoxEquip15", this->checkBoxEquip15->Checked);
 
-		key->SetValue("equipCell1", this->equipCell1->Text);
-		key->SetValue("equipCell2", this->equipCell2->Text);
-		key->SetValue("equipCell3", this->equipCell3->Text);
-		key->SetValue("equipCell4", this->equipCell4->Text);
-		key->SetValue("equipCell5", this->equipCell5->Text);
-		key->SetValue("equipCell6", this->equipCell6->Text);
-		key->SetValue("equipCell7", this->equipCell7->Text);
-		key->SetValue("equipCell8", this->equipCell8->Text);
-		key->SetValue("equipCell9", this->equipCell9->Text);
-		key->SetValue("equipCell10", this->equipCell10->Text);
-		key->SetValue("equipCell11", this->equipCell11->Text);
-		key->SetValue("equipCell12", this->equipCell12->Text);
-		key->SetValue("equipCell13", this->equipCell13->Text);
-		key->SetValue("equipCell14", this->equipCell14->Text);
-		key->SetValue("equipCell15", this->equipCell15->Text);
+			   key->SetValue("equipCell1", this->equipCell1->Text);
+			   key->SetValue("equipCell2", this->equipCell2->Text);
+			   key->SetValue("equipCell3", this->equipCell3->Text);
+			   key->SetValue("equipCell4", this->equipCell4->Text);
+			   key->SetValue("equipCell5", this->equipCell5->Text);
+			   key->SetValue("equipCell6", this->equipCell6->Text);
+			   key->SetValue("equipCell7", this->equipCell7->Text);
+			   key->SetValue("equipCell8", this->equipCell8->Text);
+			   key->SetValue("equipCell9", this->equipCell9->Text);
+			   key->SetValue("equipCell10", this->equipCell10->Text);
+			   key->SetValue("equipCell11", this->equipCell11->Text);
+			   key->SetValue("equipCell12", this->equipCell12->Text);
+			   key->SetValue("equipCell13", this->equipCell13->Text);
+			   key->SetValue("equipCell14", this->equipCell14->Text);
+			   key->SetValue("equipCell15", this->equipCell15->Text);
 
-		key->SetValue("equipDoll1", this->equipDoll1->Text);
-		key->SetValue("equipDoll2", this->equipDoll2->Text);
-		key->SetValue("equipDoll3", this->equipDoll3->Text);
-		key->SetValue("equipDoll4", this->equipDoll4->Text);
-		key->SetValue("equipDoll5", this->equipDoll5->Text);
-		key->SetValue("equipDoll6", this->equipDoll6->Text);
-		key->SetValue("equipDoll7", this->equipDoll7->Text);
-		key->SetValue("equipDoll8", this->equipDoll8->Text);
-		key->SetValue("equipDoll9", this->equipDoll9->Text);
-		key->SetValue("equipDoll10", this->equipDoll10->Text);
-		key->SetValue("equipDoll11", this->equipDoll11->Text);
-		key->SetValue("equipDoll12", this->equipDoll12->Text);
-		key->SetValue("equipDoll13", this->equipDoll13->Text);
-		key->SetValue("equipDoll14", this->equipDoll14->Text);
-		key->SetValue("equipDoll15", this->equipDoll15->Text);
+			   key->SetValue("equipDoll1", this->equipDoll1->Text);
+			   key->SetValue("equipDoll2", this->equipDoll2->Text);
+			   key->SetValue("equipDoll3", this->equipDoll3->Text);
+			   key->SetValue("equipDoll4", this->equipDoll4->Text);
+			   key->SetValue("equipDoll5", this->equipDoll5->Text);
+			   key->SetValue("equipDoll6", this->equipDoll6->Text);
+			   key->SetValue("equipDoll7", this->equipDoll7->Text);
+			   key->SetValue("equipDoll8", this->equipDoll8->Text);
+			   key->SetValue("equipDoll9", this->equipDoll9->Text);
+			   key->SetValue("equipDoll10", this->equipDoll10->Text);
+			   key->SetValue("equipDoll11", this->equipDoll11->Text);
+			   key->SetValue("equipDoll12", this->equipDoll12->Text);
+			   key->SetValue("equipDoll13", this->equipDoll13->Text);
+			   key->SetValue("equipDoll14", this->equipDoll14->Text);
+			   key->SetValue("equipDoll15", this->equipDoll15->Text);
 
-		key->SetValue("hotKeyBoxSwap", this->hotKeyBoxSwap->Text);
+			   key->SetValue("hotKeyBoxSwap", this->hotKeyBoxSwap->Text);
 
-		// Ассист
-		key->SetValue("hotKeyBoxKeyBeforeAssist", this->hotKeyBoxKeyBeforeAssist->Text);
-		key->SetValue("hotKeyBoxAssist", this->hotKeyBoxAssist->Text);
+			   // Ассист
+			   key->SetValue("hotKeyBoxKeyBeforeAssist", this->hotKeyBoxKeyBeforeAssist->Text);
+			   key->SetValue("hotKeyBoxAssist", this->hotKeyBoxAssist->Text);
 
-		key->Close();
-	}
+			   key->Close();
+		   }
 
-	/*
-	* Загрузка параметров в реестр
-	*/
-	void LoadStateFormElements() {
-		Microsoft::Win32::RegistryKey^ key;
+		   /*
+		   * Загрузка параметров в реестр
+		   */
+		   void LoadStateFormElements() {
+			   Microsoft::Win32::RegistryKey^ key;
 
-		key = Microsoft::Win32::Registry::CurrentUser->OpenSubKey("SOFTWARE\\\\AutoSwap");
-		
-		if (key != nullptr) {
-			// Свап
-			this->checkBoxEquip1->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip1"));
-			this->checkBoxEquip2->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip2"));
-			this->checkBoxEquip3->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip3"));
-			this->checkBoxEquip4->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip4"));
-			this->checkBoxEquip5->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip5"));
-			this->checkBoxEquip6->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip6"));
-			this->checkBoxEquip7->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip7"));
-			this->checkBoxEquip8->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip8"));
-			this->checkBoxEquip9->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip9"));
-			this->checkBoxEquip10->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip10"));
-			this->checkBoxEquip11->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip11"));
-			this->checkBoxEquip12->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip12"));
-			this->checkBoxEquip13->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip13"));
-			this->checkBoxEquip14->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip14"));
-			this->checkBoxEquip15->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip15"));
+			   key = Microsoft::Win32::Registry::CurrentUser->OpenSubKey("SOFTWARE\\\\AutoSwap");
 
-			this->equipCell1->Text = System::Convert::ToString(key->GetValue("equipCell1"));
-			this->equipCell2->Text = System::Convert::ToString(key->GetValue("equipCell2"));
-			this->equipCell3->Text = System::Convert::ToString(key->GetValue("equipCell3"));
-			this->equipCell4->Text = System::Convert::ToString(key->GetValue("equipCell4"));
-			this->equipCell5->Text = System::Convert::ToString(key->GetValue("equipCell5"));
-			this->equipCell6->Text = System::Convert::ToString(key->GetValue("equipCell6"));
-			this->equipCell7->Text = System::Convert::ToString(key->GetValue("equipCell7"));
-			this->equipCell8->Text = System::Convert::ToString(key->GetValue("equipCell8"));
-			this->equipCell9->Text = System::Convert::ToString(key->GetValue("equipCell9"));
-			this->equipCell10->Text = System::Convert::ToString(key->GetValue("equipCell10"));
-			this->equipCell11->Text = System::Convert::ToString(key->GetValue("equipCell11"));
-			this->equipCell12->Text = System::Convert::ToString(key->GetValue("equipCell12"));
-			this->equipCell13->Text = System::Convert::ToString(key->GetValue("equipCell13"));
-			this->equipCell14->Text = System::Convert::ToString(key->GetValue("equipCell14"));
-			this->equipCell15->Text = System::Convert::ToString(key->GetValue("equipCell15"));
-			
-			this->equipDoll1->Text = System::Convert::ToString(key->GetValue("equipDoll1"));
-			this->equipDoll2->Text = System::Convert::ToString(key->GetValue("equipDoll2"));
-			this->equipDoll3->Text = System::Convert::ToString(key->GetValue("equipDoll3"));
-			this->equipDoll4->Text = System::Convert::ToString(key->GetValue("equipDoll4"));
-			this->equipDoll5->Text = System::Convert::ToString(key->GetValue("equipDoll5"));
-			this->equipDoll6->Text = System::Convert::ToString(key->GetValue("equipDoll6"));
-			this->equipDoll7->Text = System::Convert::ToString(key->GetValue("equipDoll7"));
-			this->equipDoll8->Text = System::Convert::ToString(key->GetValue("equipDoll8"));
-			this->equipDoll9->Text = System::Convert::ToString(key->GetValue("equipDoll9"));
-			this->equipDoll10->Text = System::Convert::ToString(key->GetValue("equipDoll10"));
-			this->equipDoll11->Text = System::Convert::ToString(key->GetValue("equipDoll11"));
-			this->equipDoll12->Text = System::Convert::ToString(key->GetValue("equipDoll12"));
-			this->equipDoll13->Text = System::Convert::ToString(key->GetValue("equipDoll13"));
-			this->equipDoll14->Text = System::Convert::ToString(key->GetValue("equipDoll14"));
-			this->equipDoll15->Text = System::Convert::ToString(key->GetValue("equipDoll15"));
+			   if (key != nullptr) {
+				   // Свап
+				   this->checkBoxEquip1->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip1"));
+				   this->checkBoxEquip2->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip2"));
+				   this->checkBoxEquip3->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip3"));
+				   this->checkBoxEquip4->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip4"));
+				   this->checkBoxEquip5->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip5"));
+				   this->checkBoxEquip6->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip6"));
+				   this->checkBoxEquip7->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip7"));
+				   this->checkBoxEquip8->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip8"));
+				   this->checkBoxEquip9->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip9"));
+				   this->checkBoxEquip10->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip10"));
+				   this->checkBoxEquip11->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip11"));
+				   this->checkBoxEquip12->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip12"));
+				   this->checkBoxEquip13->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip13"));
+				   this->checkBoxEquip14->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip14"));
+				   this->checkBoxEquip15->Checked = System::Convert::ToBoolean(key->GetValue("checkBoxEquip15"));
 
-			this->hotKeyBoxSwap->Text = System::Convert::ToString(key->GetValue("hotKeyBoxSwap"));
+				   this->equipCell1->Text = System::Convert::ToString(key->GetValue("equipCell1"));
+				   this->equipCell2->Text = System::Convert::ToString(key->GetValue("equipCell2"));
+				   this->equipCell3->Text = System::Convert::ToString(key->GetValue("equipCell3"));
+				   this->equipCell4->Text = System::Convert::ToString(key->GetValue("equipCell4"));
+				   this->equipCell5->Text = System::Convert::ToString(key->GetValue("equipCell5"));
+				   this->equipCell6->Text = System::Convert::ToString(key->GetValue("equipCell6"));
+				   this->equipCell7->Text = System::Convert::ToString(key->GetValue("equipCell7"));
+				   this->equipCell8->Text = System::Convert::ToString(key->GetValue("equipCell8"));
+				   this->equipCell9->Text = System::Convert::ToString(key->GetValue("equipCell9"));
+				   this->equipCell10->Text = System::Convert::ToString(key->GetValue("equipCell10"));
+				   this->equipCell11->Text = System::Convert::ToString(key->GetValue("equipCell11"));
+				   this->equipCell12->Text = System::Convert::ToString(key->GetValue("equipCell12"));
+				   this->equipCell13->Text = System::Convert::ToString(key->GetValue("equipCell13"));
+				   this->equipCell14->Text = System::Convert::ToString(key->GetValue("equipCell14"));
+				   this->equipCell15->Text = System::Convert::ToString(key->GetValue("equipCell15"));
 
-			// Ассист
-			this->hotKeyBoxKeyBeforeAssist->Text = System::Convert::ToString(key->GetValue("hotKeyBoxKeyBeforeAssist"));
-			this->hotKeyBoxAssist->Text = System::Convert::ToString(key->GetValue("hotKeyBoxAssist"));
+				   this->equipDoll1->Text = System::Convert::ToString(key->GetValue("equipDoll1"));
+				   this->equipDoll2->Text = System::Convert::ToString(key->GetValue("equipDoll2"));
+				   this->equipDoll3->Text = System::Convert::ToString(key->GetValue("equipDoll3"));
+				   this->equipDoll4->Text = System::Convert::ToString(key->GetValue("equipDoll4"));
+				   this->equipDoll5->Text = System::Convert::ToString(key->GetValue("equipDoll5"));
+				   this->equipDoll6->Text = System::Convert::ToString(key->GetValue("equipDoll6"));
+				   this->equipDoll7->Text = System::Convert::ToString(key->GetValue("equipDoll7"));
+				   this->equipDoll8->Text = System::Convert::ToString(key->GetValue("equipDoll8"));
+				   this->equipDoll9->Text = System::Convert::ToString(key->GetValue("equipDoll9"));
+				   this->equipDoll10->Text = System::Convert::ToString(key->GetValue("equipDoll10"));
+				   this->equipDoll11->Text = System::Convert::ToString(key->GetValue("equipDoll11"));
+				   this->equipDoll12->Text = System::Convert::ToString(key->GetValue("equipDoll12"));
+				   this->equipDoll13->Text = System::Convert::ToString(key->GetValue("equipDoll13"));
+				   this->equipDoll14->Text = System::Convert::ToString(key->GetValue("equipDoll14"));
+				   this->equipDoll15->Text = System::Convert::ToString(key->GetValue("equipDoll15"));
 
-			key->Close();
-		}
-	}
+				   this->hotKeyBoxSwap->Text = System::Convert::ToString(key->GetValue("hotKeyBoxSwap"));
+
+				   // Ассист
+				   this->hotKeyBoxKeyBeforeAssist->Text = System::Convert::ToString(key->GetValue("hotKeyBoxKeyBeforeAssist"));
+				   this->hotKeyBoxAssist->Text = System::Convert::ToString(key->GetValue("hotKeyBoxAssist"));
+
+				   key->Close();
+			   }
+		   }
 #pragma endregion
-	/*
-	* Кликабельная ссылка на автора
-	*/
+		   /*
+		   * Кликабельная ссылка на автора
+		   */
 	private: System::Void authorLinkLabel1_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
 		System::Diagnostics::Process::Start("https://t.me/QTBEPHNCb");
 	}
 
-	/*
-	* Поля для ввода клавиш
-	*/
+		   /*
+		   * Поля для ввода клавиш
+		   */
 	private: System::Void hotKeyBoxKeyBeforeAssist_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 		hotKeyBoxKeyBeforeAssist->Text = e->KeyCode.ToString();
 		e->SuppressKeyPress = true;
@@ -1132,13 +1107,6 @@ namespace AutoSwap {
 	private: System::Void hotKeyBoxSwap_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e) {
 		hotKeyBoxSwap->Text = e->KeyCode.ToString();
 		e->SuppressKeyPress = true;
-	}
-
-	/*
-	* Код таймера для АвтоАссиста
-	*/
-	private: System::Void timerForAssist_Tick(System::Object^ sender, System::EventArgs^ e) {
-
 	}
 };
 }

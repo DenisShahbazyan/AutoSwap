@@ -140,6 +140,7 @@
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="SecondaryFunctions.cpp" />
     <ClCompile Include="Swap.cpp" />
+    <ClCompile Include="ChronoTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assist.h" />
@@ -154,6 +155,7 @@
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="ChronoTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">

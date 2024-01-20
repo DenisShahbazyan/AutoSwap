@@ -8,10 +8,10 @@
 
 #pragma pack(push, 1)
 struct TParams {
-    BYTE bytePacket[100];
-    DWORD lenPacket;
-    DWORD baseAddress;
-    DWORD packCall;
+	BYTE bytePacket[100];
+	DWORD lenPacket;
+	DWORD baseAddress;
+	DWORD packCall;
 };
 #pragma pack(pop)
 
